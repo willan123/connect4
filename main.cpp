@@ -10,9 +10,7 @@ char board[8][8];//available for whole program
 
 int main()
 {
-    char player1 = 'x';
-    char player2 = 'o';
-    char currentPlayer = 'o'; // start with player 2 as the last, so player 1 goes first.
+    char currentPlayer = 'o'; // start with o so x goes first!
 
     int move = -1;
 
@@ -29,43 +27,29 @@ int main()
 
 
     while(!gameOver) {
-        if(pieceCount == 64) {
-            gameOver = true;
-            cout << "Game over! -- It's a draw!" << endl;
-        } // game was a draw
+        /* tie game */
 
 
-        if (currentPlayer == 'o') {
-            currentPlayer = 'x';
-            cout << "Player 1 move: ";
-        } else {
-            currentPlayer = 'o';
-            cout << "Player 2 move: ";
-        }
+        /* switch player */
 
         cin >> move;
         --move;
         while (move < 0 || move > 7) {
-            cout << "Out of range, please try again." << endl;
-            cin >> move;
-            --move;
+            /* What do we check for here? */
         }
 
         while(true) {
             int r = drop(move, currentPlayer);
             if (r == -1) {
-                cout << "Column full -- please try again." << endl;
-                cin >> move;
-                --move;
+                /* Something went wrong */
             } else {
                 if (checkWin(r, move, currentPlayer)) {
                     cout << currentPlayer << " wins!" << endl;
                     display();
                     return 0;
                 }
-                ++pieceCount;
-                display();
-                break;
+
+                /* Move made -- next player? */
             }
         }
     }
@@ -75,14 +59,12 @@ int main()
 
 void display(){
     cout << " 1  2  3  4  5  6  7  8\n";
-    for (int i = 0; i < 8; ++i)
-    {
-        for (int j = 0; j < 8; ++j) {
-            cout << ' ' << board[i][j] << ' ';
-        }
-        cout << endl;
-    }
+    /* Display board */
     cout << endl;
+}
+
+int drop(int c, char player){
+    /* Drop in piece */
 }
 
 bool checkWin(int a, int b, char player){
@@ -133,21 +115,4 @@ bool checkWin(int a, int b, char player){
 
     // no win yet!
     return false;
-}
-
-int drop(int c, char player){
-    if(board[0][c] == '-'){
-        int i;
-        for (i = 0; board[i][c] == '-'; i++)
-            if (i == 7) {
-                board[i][c] = player;
-                return i;
-            }
-        i--;
-        board[i][c] = player;
-
-        return i;
-    }
-    else
-        return -1;
 }
