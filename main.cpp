@@ -1,12 +1,11 @@
 #include<iostream>
-#include <string>
 
 using namespace std;
 
 void display();
 int drop(int c, char player);
 bool checkWin(int r, int c, char player);
-char board[8][8];//available for whole program
+char board[8][8];
 
 int main()
 {
@@ -27,21 +26,21 @@ int main()
 
 
     while(!gameOver) {
-        /* tie game */
+        /* 4. tie game */
 
 
-        /* switch player */
+        /* 2. switch player */
 
         cin >> move;
         --move;
         while (move < 0 || move > 7) {
-            /* What do we check for here? */
+            /* 3. What do we check for here? */
         }
 
         while(true) {
             int r = drop(move, currentPlayer);
             if (r == -1) {
-                /* Something went wrong */
+                /* 5. Something went wrong */
             } else {
                 if (checkWin(r, move, currentPlayer)) {
                     cout << currentPlayer << " wins!" << endl;
@@ -49,7 +48,7 @@ int main()
                     return 0;
                 }
 
-                /* Move made -- next player? */
+                /* 6. Move made -- next player? */
             }
         }
     }
@@ -59,12 +58,12 @@ int main()
 
 void display(){
     cout << " 1  2  3  4  5  6  7  8\n";
-    /* Display board */
+    /* 1. Display board */
     cout << endl;
 }
 
 int drop(int c, char player){
-    /* Drop in piece */
+    /* 7. Drop in piece */
 }
 
 bool checkWin(int a, int b, char player){
